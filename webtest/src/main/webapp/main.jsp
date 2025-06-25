@@ -52,6 +52,9 @@
                 <a href="./user_list.action" target="content">用户管理</a>
             </div>
             <div>
+                <a href="./user_list.action" target="content">部门管理</a>
+            </div>
+            <div>
                 <a href="./apple.jsp" target="content">苹果之乡</a>
             </div>
             <div>
