@@ -1,4 +1,3 @@
-
 <%--
   Created by IntelliJ IDEA.
   User: PJM
@@ -79,6 +78,12 @@
             // 通过JS的语法，完成页面跳转
             location.href = "./user_add.jsp";
         }
+        function deleteUser(id) {
+            let flag = confirm("删除操作不可恢复，是否确认删除此数据？");
+            if (flag){
+                location.href = "./user_delete.action?id="+id;
+            }
+        }
     </script>
 </head>
 <body>
@@ -90,11 +95,13 @@
     </form>
 </div>
 <table>
-    <tr><th>序号</th><th>用户名</th><th>性别</th><th>工号</th><th>部门</th><th>岗位</th><th>联系电话</th><th>邮箱</th></tr>
+    <tr><th>序号</th><th>用户名</th><th>性别</th><th>工号</th><th>部门</th><th>岗位</th><th>联系电话</th><th>邮箱</th><th>操作</th></tr>
     <c:forEach var="user" items="${requestScope.userList}" varStatus="status">
         <tr><td>${status.count}</td><td>${user.username}</td><td>${user.gender}</td><td>${user.workCode}</td>
             <td>${applicationScope.departMap[user.department]}</td>
-            <td>${applicationScope.jobMap[user.post]}</td><td>${user.telephone}</td><td>${user.email}</td></tr>
+            <td>${applicationScope.jobMap[user.post]}</td><td>${user.telephone}</td><td>${user.email}</td>
+            <td><img src="./image/del_button.png" onclick="deleteUser('${user.id}')"/></td>
+        </tr>
     </c:forEach>
 
 </table>

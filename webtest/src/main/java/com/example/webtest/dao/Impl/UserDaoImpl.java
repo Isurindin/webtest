@@ -24,7 +24,7 @@ public class UserDaoImpl implements UserDao {
             ps.setString(1, users.getUsername());
             ps.setString(2, users.getPassword());
             ResultSet set = ps.executeQuery();
-            while (set.next()){
+            while (set.next()) {
                 Integer id = set.getInt("id");
                 String workCode = set.getString("work_code");
                 String username = set.getString("username");
@@ -38,11 +38,11 @@ public class UserDaoImpl implements UserDao {
                 String email = set.getString("email");
                 String role = set.getString("role");
                 Integer state = set.getInt("state");
-                users = new Users(id,workCode,username,password,department,post,registerDate,gender,telephone,birthDate,email);
+                users = new Users(id, workCode, username, password, department, post, registerDate, gender, telephone, birthDate, email);
                 return users;
             }
 //            conn.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -57,7 +57,7 @@ public class UserDaoImpl implements UserDao {
             String sql = "select * from users order by id desc limit 0,10";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet set = ps.executeQuery();
-            while (set.next()){
+            while (set.next()) {
                 Integer id = set.getInt("id");
                 String workCode = set.getString("work_code");
                 String username = set.getString("username");
@@ -71,11 +71,11 @@ public class UserDaoImpl implements UserDao {
                 String email = set.getString("email");
                 String role = set.getString("role");
                 Integer state = set.getInt("state");
-                Users user = new Users(id,workCode,username,password,department,post,registerDate,gender,telephone,birthDate,email);
+                Users user = new Users(id, workCode, username, password, department, post, registerDate, gender, telephone, birthDate, email);
                 list.add(user);
             }
 //            conn.close();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return list;
@@ -83,7 +83,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int insertUser(Users user) {
-        try{
+        try {
             Connection conn = JDBCTool.getConnection();
             String sql = "insert into users(work_code,username,password,department,post,register_date,gender,telephone,birth_date,email) value (?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -100,9 +100,29 @@ public class UserDaoImpl implements UserDao {
             statement.setString(10, user.getEmail());
             // 完成sql语句的执行 添加、删除、更新，影响了多少行数
             int rowsNum = statement.executeUpdate();
-           // conn.close();
+            // conn.close();
             return rowsNum;
-        }catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public int deleteUser(Users user) {
+        try {
+            int rows = 0;
+            Connection conn = JDBCTool.getConnection();
+            conn.setAutoCommit(true);
+            String sql = "DELETE FROM users WHERE id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, user.getId());
+            rows = ps.executeUpdate();
+            System.out.println("删除返回行数：" + rows);
+
+            //conn.close();
+            return rows;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return 0;
