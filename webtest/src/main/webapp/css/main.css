@@ -1,11 +1,6 @@
 /**
     body标签选择器，body是选择器的名称，与标签的名称是一致
  */
-body{
-    margin: 0 5%;
-    font-family: "微软雅黑";
-    font-size: 14px;
-}
 
 table,td,th{
     border: 1px solid black;
@@ -16,9 +11,7 @@ table,td,th{
 }
 
 table{
-    width: 80%;
     font-size: 13px;
-    margin: auto;
     text-align: center;
 }
 
@@ -56,10 +49,7 @@ tr:hover{
 div{
 
 }
-#total{
-    width: 1200px;
-    margin: auto;
-}
+
 /**
     空格后面，跟随的两个选择器，表示找id是middle
     内部元素，内部id是left，right的两个元素
@@ -68,10 +58,10 @@ div{
     height: 520px;
 }
 #left{
-    width: 200px;
+    width: 10%;
 }
 #right {
-    width: 1000px;
+    width: 90%;
 }
 
 #middle #left,#right{
