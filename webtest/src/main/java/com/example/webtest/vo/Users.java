@@ -1,7 +1,7 @@
 package com.example.webtest.vo;
 
 public class Users {
-    private int id;
+    private Integer id;
     private String workCode;
     private String username;
     private String password;
@@ -14,7 +14,21 @@ public class Users {
     private String email;
     private String role;
 
+
+    public Users(){}
+
     public Users(Integer id, String workCode, String username, String password, String department, String post, String registerDate, String gender, String telephone, String birthDate, String email) {
+        this.id = id;
+        this.workCode = workCode;
+        this.username = username;
+        this.password = password;
+        this.department = department;
+        this.post = post;
+        this.registerDate = registerDate;
+        this.gender = gender;
+        this.telephone = telephone;
+        this.birthDate = birthDate;
+        this.email = email;
     }
 
     public int getId() {
@@ -123,7 +137,7 @@ public class Users {
 
     private Integer state;
 
-    public Users(){}
+
 
 
 

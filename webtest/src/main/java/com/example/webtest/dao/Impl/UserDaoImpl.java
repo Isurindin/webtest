@@ -10,17 +10,21 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author zzw
+ * @date 2025/6/24-9:18
+ */
 public class UserDaoImpl implements UserDao {
     @Override
-    public Users userLogin(Users users){
-        try{
+    public Users userLogin(Users users) {
+        try {
             Connection conn = JDBCTool.getConnection();
             String sql = "select * from users where username=? and password=?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1,users.getUsername());
-            ps.setString(2,users.getPassword());
+            ps.setString(1, users.getUsername());
+            ps.setString(2, users.getPassword());
             ResultSet set = ps.executeQuery();
-            while(set.next()){
+            while (set.next()){
                 Integer id = set.getInt("id");
                 String workCode = set.getString("work_code");
                 String username = set.getString("username");
@@ -37,21 +41,23 @@ public class UserDaoImpl implements UserDao {
                 users = new Users(id,workCode,username,password,department,post,registerDate,gender,telephone,birthDate,email);
                 return users;
             }
-        }catch(Exception e){
+//            conn.close();
+        }catch (Exception e){
             e.printStackTrace();
         }
         return null;
+
     }
 
     @Override
-    public List<Users> queryUserList(){
+    public List<Users> queryUserList() {
         List<Users> list = new ArrayList<>();
-        try{
+        try {
             Connection conn = JDBCTool.getConnection();
             String sql = "select * from users order by id desc limit 0,10";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet set = ps.executeQuery();
-            while(set.next()){
+            while (set.next()){
                 Integer id = set.getInt("id");
                 String workCode = set.getString("work_code");
                 String username = set.getString("username");
@@ -68,10 +74,10 @@ public class UserDaoImpl implements UserDao {
                 Users user = new Users(id,workCode,username,password,department,post,registerDate,gender,telephone,birthDate,email);
                 list.add(user);
             }
-        }catch(Exception ex){
+//            conn.close();
+        }catch (Exception ex){
             ex.printStackTrace();
         }
-
         return list;
     }
 }

@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-
+/**
+ * @author zzw
+ * @date 2025/6/24-14:27
+ */
 @WebServlet("/user_list.action")
 public class UserListControl extends HttpServlet {
 
