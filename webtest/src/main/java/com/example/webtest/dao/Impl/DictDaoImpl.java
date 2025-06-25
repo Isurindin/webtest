@@ -23,7 +23,7 @@ public class DictDaoImpl implements DictDao {
                 String value = set.getString("dict_type");
                 jobMap.put(key, value);
             }
-         //   conn.close();
+//                conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

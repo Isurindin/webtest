@@ -24,7 +24,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
                 String value = set.getString("name");
                 departmentMap.put(key, value);
             }
-            //conn.close();
+//            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
