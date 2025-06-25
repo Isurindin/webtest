@@ -13,4 +13,6 @@ public interface  UserDao {
 
 
     List<Users> queryUserList();
+
+    int insertUser(Users users);
 }

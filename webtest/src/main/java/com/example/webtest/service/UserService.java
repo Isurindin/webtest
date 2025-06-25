@@ -15,5 +15,7 @@ public  interface UserService {
 
     List<Users> queryUserList();
 
+    int insertUser(Users users);
+
 
 }

@@ -80,4 +80,31 @@ public class UserDaoImpl implements UserDao {
         }
         return list;
     }
+
+    @Override
+    public int insertUser(Users user) {
+        try{
+            Connection conn = JDBCTool.getConnection();
+            String sql = "insert into users(work_code,username,password,department,post,register_date,gender,telephone,birth_date,email) value (?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            // 通过statement的setXX方法，完成参数的传递
+            statement.setString(1, user.getWorkCode());
+            statement.setString(2, user.getUsername());
+            statement.setString(3, user.getPassword());
+            statement.setString(4, user.getDepartment());
+            statement.setString(5, user.getPost());
+            statement.setString(6, user.getRegisterDate());
+            statement.setString(7, user.getGender());
+            statement.setString(8, user.getTelephone());
+            statement.setString(9, user.getBirthDate());
+            statement.setString(10, user.getEmail());
+            // 完成sql语句的执行 添加、删除、更新，影响了多少行数
+            int rowsNum = statement.executeUpdate();
+           // conn.close();
+            return rowsNum;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
