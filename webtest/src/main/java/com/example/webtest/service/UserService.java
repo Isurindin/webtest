@@ -20,4 +20,5 @@ public  interface UserService {
     int deleteUser(Users users);
 
 
+    Users queryUserById(String id);
 }

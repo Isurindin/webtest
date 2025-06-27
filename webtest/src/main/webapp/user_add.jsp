@@ -107,17 +107,18 @@
         ${requestScope.addErr}
     </div>
     <form id="addForm" method="post" action="./user_insert.action">
+        <input type="hidden" id="id" name="id" value="${requestScope.user.id}" />
         <div class="container">
             <div class="left">员工工号：</div>
-            <div class="right"><input des type="text" id="workCode" name="workCode" /></div>
+            <div class="right"><input des type="text" id="workCode" name="workCode" value="${requestScope.user.workCode}"/></div>
         </div>
         <div class="container">
             <div class="left">员工姓名：</div>
-            <div class="right"><input des type="text" id="username" name="username" /></div>
+            <div class="right"><input des type="text" id="username" name="username" value="${requestScope.user.username}"/></div>
         </div>
         <div class="container">
             <div class="left">账号密码：</div>
-            <div class="right"><input des type="password" id="password" name="password" /></div>
+            <div class="right"><input des type="password" id="password" name="password" value="${requestScope.user.password}"/></div>
         </div>
         <div class="container">
             <div class="left">选择部门：</div>
@@ -125,7 +126,12 @@
                 <select id="department" name="department">
                     <option value="">请选择</option>
                     <c:forEach var="entry" items="${applicationScope.departMap}">
-                        <option value="${entry.key}">${entry.value}</option>
+                        <c:if test="${entry.key==requestScope.user.department}">
+                            <option value="${entry.key}" selected>${entry.value}</option>
+                        </c:if>
+                        <c:if test="${entry.key!=requestScope.user.department}">
+                            <option value="${entry.key}">${entry.value}</option>
+                        </c:if>
                     </c:forEach>
                 </select>
             </div>
@@ -133,10 +139,18 @@
         <div class="container">
             <div class="left">选择岗位：</div>
             <div class="right">
-                <select id="post" name="post">
+                <select id="post" name="post" value="${requestScope.user.post}">
                     <option value="">请选择</option>
                     <c:forEach var="entry" items="${applicationScope.jobMap}">
-                        <option value="${entry.key}">${entry.value}</option>
+                        <c:choose>
+                            <c:when test="${entry.key==requestScope.user.post}">
+                                <option value="${entry.key}" selected>${entry.value}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${entry.key}">${entry.value}</option>
+                            </c:otherwise>
+                        </c:choose>
+
                     </c:forEach>
                 </select>
             </div>
@@ -150,15 +164,15 @@
         </div>
         <div class="container">
             <div class="left">联系电话：</div>
-            <div class="right"><input des type="text" id="telephone" name="telephone" /></div>
+            <div class="right"><input des type="text" id="telephone" name="telephone" value="${requestScope.user.telephone}"/></div>
         </div>
         <div class="container">
             <div class="left">出生日期：</div>
-            <div class="right"><input des type="date" id="birthDate" name="birthDate" /></div>
+            <div class="right"><input des type="date" id="birthDate" name="birthDate" value="${requestScope.user.birthDate}"/></div>
         </div>
         <div class="container">
             <div class="left">邮箱：</div>
-            <div class="right"><input des type="text" id="email" name="email" /></div>
+            <div class="right"><input des type="text" id="email" name="email" value="${requestScope.user.email}"/></div>
         </div>
         <div class="btnDiv">
             <input type="button" value="保存" onclick="saveUser()" style="background-color: cornflowerblue"/>

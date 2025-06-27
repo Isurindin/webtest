@@ -84,6 +84,9 @@
                 location.href = "./user_delete.action?id="+id;
             }
         }
+        function updateUser(id) {
+            location.href = "./user_update.action?id="+id;
+        }
     </script>
 </head>
 <body>
@@ -100,7 +103,8 @@
         <tr><td>${status.count}</td><td>${user.username}</td><td>${user.gender}</td><td>${user.workCode}</td>
             <td>${applicationScope.departMap[user.department]}</td>
             <td>${applicationScope.jobMap[user.post]}</td><td>${user.telephone}</td><td>${user.email}</td>
-            <td><img src="./image/del_button.png" onclick="deleteUser('${user.id}')"/></td>
+            <td><img src="./image/del_button.png" onclick="deleteUser('${user.id}')"/>
+                <img src="./image/edit_button.png" onclick="updateUser('${user.id}')"/></td>
         </tr>
     </c:forEach>
 

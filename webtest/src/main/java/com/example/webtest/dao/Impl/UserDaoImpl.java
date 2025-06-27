@@ -98,10 +98,8 @@ public class UserDaoImpl implements UserDao {
             statement.setString(8, user.getTelephone());
             statement.setString(9, user.getBirthDate());
             statement.setString(10, user.getEmail());
-            // 完成sql语句的执行 添加、删除、更新，影响了多少行数
-            int rowsNum = statement.executeUpdate();
             // conn.close();
-            return rowsNum;
+            return statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -118,7 +116,6 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, user.getId());
             rows = ps.executeUpdate();
-            System.out.println("删除返回行数：" + rows);
 
             //conn.close();
             return rows;
@@ -127,4 +124,63 @@ public class UserDaoImpl implements UserDao {
         }
         return 0;
     }
+
+    @Override
+    public int updateUser(Users users) {
+        try {
+            String sql = "update users set work_code=?,username=?,password=?,department=?,post=?,gender=?,telephone=?,email=? where id=?";
+            Connection conn = JDBCTool.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,users.getWorkCode());
+            statement.setString(2,users.getUsername());
+            statement.setString(3,users.getPassword());
+            statement.setString(4,users.getDepartment());
+            statement.setString(5,users.getPost());
+            statement.setString(6,users.getGender());
+            statement.setString(7,users.getTelephone());
+            statement.setString(8,users.getEmail());
+            statement.setInt(9,users.getId());
+            int rows = statement.executeUpdate();
+           // conn.close();
+            return rows;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+
+
+    @Override
+    public Users queryUserById(String id) {
+        try {
+            Connection conn = JDBCTool.getConnection();
+            String sql = "select * from users where id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet set = ps.executeQuery();
+            Users users = null;
+            while (set.next()){
+                String workCode = set.getString("work_code");
+                String username = set.getString("username");
+                String password = set.getString("password");
+                String department = set.getString("department");
+                String post = set.getString("post");
+                String registerDate = set.getString("register_date");
+                String gender = set.getString("gender");
+                String telephone = set.getString("telephone");
+                String birthDate = set.getString("birth_date");
+                String email = set.getString("email");
+                String role = set.getString("role");
+                Integer state = set.getInt("state");
+                users = new Users(set.getInt("id"),workCode,username,password,department,post,registerDate,gender,telephone,birthDate,email);
+            }
+        //    conn.close();
+            return users;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
+
